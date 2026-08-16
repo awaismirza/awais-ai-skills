@@ -1,0 +1,12 @@
+{
+  "name": "login",
+  "portal": "auth",
+  "description": "Log in at the auth portal with the local credentials file",
+  "requiresLogin": false,
+  "steps": [
+    { "action": "navigate", "url": "{auth}/#/account/login", "expect": "Login form visible (Email Address / Password fields)" },
+    { "action": "fill", "target": "Email Address input", "value": "<user from credentials file>", "expect": "email populated" },
+    { "action": "fill", "target": "Password input", "value": "<pass from credentials file>", "expect": "password populated" },
+    { "action": "click", "target": "submit button (sign in)", "expect": "redirect to {auth}/#/app/admin/tenants (Tenants admin list)" }
+  ]
+}

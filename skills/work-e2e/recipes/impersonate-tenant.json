@@ -1,0 +1,33 @@
+{
+  "name": "impersonate-tenant",
+  "portal": "auth",
+  "description": "Log in as super admin, then impersonate a user within a given tenant to land in that tenant's portal",
+  "requiresLogin": true,
+  "params": {
+    "tenantSearch": "sample",
+    "tenantMatch": "Tenant name/code exact match, e.g. 'Sample' with code 'SAM' (type Tenant) — disambiguate by code when multiple rows match the search text",
+    "userMatch": "e.g. 'Admin Mohr' (role Admin) — ask the user if not specified and multiple candidates exist"
+  },
+  "steps": [
+    { "action": "navigate", "url": "{auth}/#/app/admin/tenants", "expect": "Tenants list visible; runs login.json first if not authenticated" },
+    { "action": "fill", "target": "Tenant name / tenancy code search input", "value": "{{tenantSearch}}", "expect": "filtered tenant list shown" },
+    { "action": "click", "target": "Login button in the row matching {{tenantMatch}}", "expect": "Select a user modal opens" },
+    { "action": "click", "target": "Impersonate button in the row for {{userMatch}}", "writesData": true, "expect": "redirect to tenant/provider portal landing page (e.g. {tenant}/#/app/landing), dashboard tiles visible" },
+    { "action": "screenshot", "label": "final" }
+  ],
+  "notes": [
+    "Tenant search by name is often ambiguous (e.g. 'sample' matched 6 tenants) — confirm the exact row with the user on first run before clicking Login.",
+    "The user-select modal lists multiple accounts per tenant with varying roles — confirm which user to impersonate on first run.",
+    "Successful impersonation redirects across ports (auth :4200 -> tenant :4201 or provider :4202) — wait ~2s and re-check the tab URL rather than assuming failure."
+  ],
+  "workedExamples": [
+    {
+      "label": "sonic-provider-admin-mohr",
+      "seeRecipe": "sonic-provider-admin-mohr.json",
+      "tenantSearch": "Sonic",
+      "tenantMatch": "Trading name 'DFR - Sonic Health Plus' / Tenancy name 'SonicHealthcare' / Type Provider (NOT the other Sonic row 'Sonic Health Plus - DFR*' / tenancy 'SonicHealthPlusDFR')",
+      "userMatch": "Admin Mohr* (management@myocchealthrecord.com)",
+      "verifiedOn": "2026-07-30, mohr-web branch refactor/consolidate-utilhelpers (Phase 5 tasks 5.1-5.4)"
+    }
+  ]
+}

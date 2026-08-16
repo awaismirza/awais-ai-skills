@@ -1,0 +1,26 @@
+{
+  "name": "provider-assessment-block-smoke-test",
+  "portal": "provider",
+  "description": "Read-only walk through an in-progress assessment block's Tests/Determination/Summary tabs -- general-purpose smoke check for any change touching provider assessment code (JsonHelper node-search, master-assessment.service.ts, assessment-test.component.ts, injury-prevention base class, etc.)",
+  "requiresLogin": true,
+  "prerequisite": "Run sonic-provider-admin-mohr.json (or any impersonate-tenant.json variant) first to land on a Provider portal with real seeded data.",
+  "steps": [
+    { "action": "navigate", "url": "{provider}/#/app/main/inclinic-user/open-assessments", "expect": "Clinical Dashboard 'In Progress' list visible, N block(s) found" },
+    { "action": "click", "target": "Start button (2nd action icon) in any row -- NOT the '+' notes icon (1st icon) which opens an unrelated Add Note modal", "expect": "Candidate block detail view opens, showing Current Block / All Blocks / General Notes & Documents tabs" },
+    { "action": "click", "target": "Tests tab in the left sub-nav", "expect": "Review section with a document table + PDF preview pane (may show 'Missing PDF file 404' in console -- that's local S3 test-data noise, not a code bug)" },
+    { "action": "click", "target": "Determination tab", "expect": "Determination - <JobPreference> panel with an outcome dropdown, read-only unless you intentionally change it" },
+    { "action": "click", "target": "Summary tab", "expect": "Assessment/Outcome table listing Tests + Determination completion status" },
+    { "action": "screenshot", "label": "final" }
+  ],
+  "knownUnrelatedNoise": [
+    "PDF.js 'Missing PDF file... 404' against mohr-local-dev S3 bucket -- local dev fixture data gap, not a regression.",
+    "'Error parsing user customisation: SyntaxError: Unexpected end of JSON input' -- pre-existing, unrelated to assessment code.",
+    "NG0100 ExpressionChangedAfterItHasBeenCheckedError on _AddNoteTabComponent -- only fires if you click the notes '+' icon; pre-existing CD timing issue (this codebase is ~96% non-OnPush per the perf roadmap audit), not introduced by helper-consolidation work.",
+    "Two different candidate rows can show what looks like the same 'Adam Sandler' document pair under Tests -- appears to be shared/reused local seed data (same S3 object id in the PDF URL across candidates), not a caching bug worth chasing for this kind of change."
+  ],
+  "whatToWatchForOnARealRegression": [
+    "TypeError / ReferenceError mentioning a helper class name (UtilsHelper, UrlHelper, CookieHelper, JsonHelper) -- would indicate a broken import after a libs/utils consolidation.",
+    "Assessment threshold/answer values rendering as blank or 'undefined' where they previously showed a value -- the likely visible symptom if JsonHelper's node-search logic broke.",
+    "Failure to land on the Provider/Tenant portal at all after impersonation, or a blank Team Dashboard -- would indicate the CookieHelper/UrlHelper pre-bootstrap wiring broke."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "sonic-provider-admin-mohr",
+  "portal": "provider",
+  "description": "Resolved preset of impersonate-tenant: host admin -> impersonate Admin Mohr into DFR - Sonic Health Plus (Provider), lands on the Provider portal Team Dashboard",
+  "requiresLogin": true,
+  "extends": "impersonate-tenant",
+  "params": {
+    "tenantSearch": "Sonic",
+    "tenantMatch": "Row with Trading name 'DFR - Sonic Health Plus', Tenancy name 'SonicHealthcare', Type 'Provider' (there is also a 'Sonic Health Plus - DFR*' Provider row with tenancy 'SonicHealthPlusDFR' -- that one is NOT this tenant, disambiguate by tenancy name SonicHealthcare)",
+    "userMatch": "Admin Mohr* (management@myocchealthrecord.com), role Administrator"
+  },
+  "steps": [
+    { "action": "navigate", "url": "{auth}/#/app/admin/tenants", "expect": "Tenants list visible; runs login.json first if not authenticated" },
+    { "action": "fill", "target": "Tenant name / tenancy code search input", "value": "Sonic", "expect": "filtered list shows 'Sonic Health Plus - DFR*' and 'DFR - Sonic Health Plus' rows" },
+    { "action": "click", "target": "Login button in the row with Tenancy name 'SonicHealthcare' (DFR - Sonic Health Plus, Provider type, ~73 users, ~5137 bookings)", "expect": "Select a user modal opens" },
+    { "action": "click", "target": "Impersonate button in the row for 'Admin Mohr* (management@myocchealthrecord.com)'", "writesData": true, "expect": "redirect to {provider}/#/app/main/provider/team-dashboard (or similar), Team Dashboard visible with Onsite Booking Calendar + Waitlist" },
+    { "action": "screenshot", "label": "final" }
+  ],
+  "verifiedSessionCookies": {
+    "note": "After this flow, document.cookie should contain MOHR.TenantId.localhost and MOHR.AuthToken.localhost (a JWT). Decode the JWT payload to sanity-check tenant_name/user_email/is_provider claims match what was intended -- useful smoke check whenever cookie-handling code changes.",
+    "expectedClaimsSample": { "tenant_name": "DFR - Sonic Health Plus", "user_email": "management@myocchealthrecord.com", "is_provider": "True" }
+  },
+  "usefulNavigationFromHere": [
+    { "path": "left sidebar 2nd icon (headset-with-chevron) -> 'In Progress'", "url": "{provider}/#/app/main/inclinic-user/open-assessments", "hits": "assessment block list -- open any row's Start button to reach a block's Tests/Determination/Summary tabs (exercises master-assessment.service.ts / JsonHelper node-search, and assessment-test.component.ts for question-driven test types e.g. 'Maths Test', 'Psychology Interview')" },
+    { "note": "Known local-dev-only noise seen in this area, NOT related to app code: 'Missing PDF file... 404' from mohr-local-dev S3 bucket (test fixture PDFs don't exist in local S3), 'Error parsing user customisation' JSON.parse warning, NG0100 on _AddNoteTabComponent when the Notes '+' icon is clicked. None of these reference JsonHelper/UrlHelper/CookieHelper/UtilsHelper." }
+  ]
+}
