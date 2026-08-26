@@ -1,0 +1,53 @@
+# CLAUDE.md
+
+## Read AGENTS.md first
+
+**[AGENTS.md](AGENTS.md) is the source of truth for how work is done in this repository** — the definition of done, the non-negotiable rules, the required spec and changelog updates, and the commands. It applies to every agent and every human equally.
+
+This file holds only the *architectural context* that is expensive to rediscover by reading code. **Where the two overlap, AGENTS.md wins**, and this file should be corrected rather than argued with.
+
+Before changing anything:
+1. Read [AGENTS.md](AGENTS.md) for the current rules and commands.
+2. Read [STATUS.md](STATUS.md) if picking up work that might already be in progress.
+3. Read this file for the "why" behind anything that looks non-obvious.
+
+### The short version of the contract
+Run the verification command, add a test, add a CHANGELOG entry. Bump the spec for anything user-visible or architectural. Never edit a shipped migration.
+
+---
+
+## What This Is
+
+[One paragraph: what this product/repo is, for whom. Spec version: v[X.Y].]
+
+---
+
+## Commands
+
+```bash
+# [Same commands as AGENTS.md §4 — or just point there once both exist, to avoid drift]
+```
+
+---
+
+## Non-Negotiables
+
+[Same table as AGENTS.md §2, or a pointer once both exist — pick one, don't maintain two copies.]
+
+---
+
+## Architecture: The Parts That Span Files
+
+[This is the section worth actually writing well. For each non-obvious decision, a short "war story" — what broke, what was measured, what the rule is now, and why. This is exactly the content that's expensive to rediscover from code alone. Examples of the *shape* to aim for, not content to copy: "Time to first token is a design constraint, not an afterthought — here's the P95 budget and where it's enforced." "This cache is exact-match on purpose — approximate matching caused a class of bug X on [date]." Keep each one short: the constraint, the evidence, the rule.]
+
+---
+
+## Conventions
+
+[Path aliases, test conventions, anything genuinely repo-specific. If AGENTS.md already states a rule, don't restate it here — link instead.]
+
+---
+
+## Spec, Changelog and Release Workflow
+
+Owned by AGENTS.md §1.2. Do not duplicate the rules here — a second copy is a second thing to drift. One-paragraph summary: [spec bumps via the snapshot script, changelog entries at the top of Unreleased, STATUS.md kept current throughout].

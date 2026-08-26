@@ -1,0 +1,91 @@
+# AGENTS.md — the contract for every coding agent
+
+**This file is the single source of truth for how work is done in this repository.** Claude Code, Codex, Cursor, Gemini, Copilot, Antigravity, and any human all follow the same rules. `CLAUDE.md` defers to this file; if the two ever disagree, this file wins and `CLAUDE.md` must be corrected.
+
+Picking up mid-task? Read [STATUS.md](STATUS.md) first.
+
+Canonical links: [Product Spec](docs/product-spec.md) · [Spec Changelog](docs/spec-changelog.md) · [Changelog](CHANGELOG.md) · [Roadmap](docs/roadmap.md)
+
+---
+
+## 1. The Definition of Done
+
+### 1.1 Always required
+- [ ] The project's verification command passes (tests + typecheck/build — replace with this repo's actual command, e.g. `npm run verify` or `xcodebuild test -scheme ... `).
+- [ ] A test exists for the behavior that changed, where the codebase's existing testing convention makes that practical.
+- [ ] `CHANGELOG.md`'s `## [Unreleased]` section has a one-line, user-visible-effect entry for the change.
+- [ ] `STATUS.md` reflects the current state of the work — updated in the same session, not as an afterthought.
+
+### 1.2 Required when the change is user-visible or architectural
+- [ ] Snapshot the current spec: `./scripts/bump-spec.sh snapshot` (or manually `cp docs/product-spec.md docs/specs/product-spec-v<CURRENT>.md`).
+- [ ] Bump the version header in `docs/product-spec.md` and its `Historical versions` line.
+- [ ] Update the relevant spec section(s) with the new behavior.
+- [ ] Add an entry to the top of `docs/spec-changelog.md` naming the changed sections.
+- [ ] Save the new snapshot: `./scripts/bump-spec.sh save` (or manually `cp docs/product-spec.md docs/specs/product-spec-v<NEW>.md`).
+
+### 1.3 Required when you add a migration
+- [ ] Migrations are additive/immutable once merged — never edit a migration that's already shipped; write a new one.
+- [ ] [Fill in this repo's actual migration tooling/commands.]
+
+### 1.4 Required when you change a rule in this file
+- [ ] Keep `AGENTS.md` and `CLAUDE.md` in sync — if a rule changes here, check whether CLAUDE.md's "why" context needs updating too.
+
+---
+
+## 2. Non-Negotiable Rules
+
+| Rule | Why |
+|---|---|
+| [Fill in this repo's actual non-negotiables — e.g. "offline-first", "never hardcode a tax-year constant", "server-side tenancy checks only"] | [The reason, in one line — usually a past incident or a hard constraint] |
+
+---
+
+## 3. Working Style Expected of an Agent
+
+- Measure before you build. Diagnose before fixing.
+- Say when a test asserted the wrong thing, rather than silently changing the assertion to match broken behavior.
+- Report failures faithfully — a partial result is not a success.
+- Prefer additive migrations and changes over destructive ones.
+
+---
+
+## 4. Development Commands
+
+```bash
+# [Fill in: install, dev server, test, build, lint/typecheck commands]
+```
+
+---
+
+## 5. Architecture Overview
+
+[Fill in: request paths, major components, directory map. Keep this the *summary*; put the "why" behind non-obvious choices in CLAUDE.md instead of duplicating it here.]
+
+---
+
+## 6. Testing
+
+[Fill in: what's covered, by which suite, and where. State honestly what's aspirational vs. actually wired into the verification command — an aspirational testing-strategy section that's drifted from what's actually built is worse than a shorter, accurate one.]
+
+---
+
+## 7. What Is Built
+
+### Complete
+- [Feature list]
+
+### Known gaps (recorded honestly)
+- [What's intentionally not done yet, and why]
+
+### Remaining / post-MVP
+- [What's planned but not started — cross-reference docs/roadmap.md rather than duplicating it here]
+
+---
+
+## 8. Conventions
+
+[Fill in: path aliases, test conventions, any repo-specific style rules.]
+
+---
+
+*Last updated: [DATE] | Spec version: v[X.Y] | Updated by: [agent/human name]*

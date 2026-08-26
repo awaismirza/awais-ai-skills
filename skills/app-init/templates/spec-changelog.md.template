@@ -1,0 +1,37 @@
+# Spec Changelog
+
+Records how the **specification** changed — not what shipped in the product (see [`CHANGELOG.md`](../CHANGELOG.md) for that). One entry per spec version bump, added when [Definition of Done §1.2](../AGENTS.md) runs.
+
+---
+
+## v1.0 — [DATE]
+
+**Summary:** Initial spec.
+
+**Key additions & changes:**
+- Initial version — no prior version to diff against.
+
+**Migration required:** No.
+
+**Changed sections:** All (initial version).
+
+**Changed by:** [agent/human name]
+
+---
+
+<!--
+Template for future entries — copy this block above the divider when bumping:
+
+## vX.Y — [DATE]
+
+**Summary:** [One line.]
+
+**Key additions & changes:**
+- [Bullet per meaningful change]
+
+**Migration required:** [Yes/No — if yes, link the migration]
+
+**Changed sections:** [List the product-spec.md section numbers/names that changed]
+
+**Changed by:** [agent/human name]
+-->

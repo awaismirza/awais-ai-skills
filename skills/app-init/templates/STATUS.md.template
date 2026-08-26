@@ -1,0 +1,29 @@
+# Status
+
+Last updated: [DATE] by [agent/human name]
+
+Cross-session handoff log — read this first if picking up work that might already be mid-flight. See the app-init skill's `references/status-log.md` for the format rules (every "in progress" entry needs a concrete next step or it's not actually in progress; cross-check "done" against reality where that's cheap; prune completed items out to CHANGELOG.md within a handful of entries).
+
+## In Progress
+
+<!--
+### [Short title]
+- **State:** in-progress | blocked
+- **Started:** [DATE]
+- **What's done:** [Concrete, specific]
+- **What's left:** [Concrete, specific]
+- **Next step:** [The literal next action — enough for a cold agent to start immediately]
+- **Blocked on:** [nothing | the specific external thing]
+-->
+
+(Nothing in progress yet.)
+
+## Recently Completed
+
+<!--
+### [Short title]
+- **Completed:** [DATE]
+- **Where:** [file(s)/area]
+-->
+
+(Nothing completed yet — this is a fresh repo.)

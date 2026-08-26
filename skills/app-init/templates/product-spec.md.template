@@ -1,0 +1,54 @@
+> **Spec version:** v1.0
+> **Historical versions:** (none yet — this is the first version)
+
+# [Product Name] — Product Spec
+
+## 1. Overview
+
+[What this product is, who it's for, the core problem it solves.]
+
+## 2. Core Loop
+
+[The one thing a user does repeatedly that the whole product exists to support.]
+
+## 3. Feature List
+
+[One section per feature area. As features ship, this is the living description of current behavior — not a wishlist. Planned-but-unbuilt features belong in docs/roadmap.md, not here.]
+
+## 4. Non-Goals
+
+[What this product deliberately does not do, and why — as important as what it does do.]
+
+## 5. Platform & Stack
+
+[iOS/Android/Web, frameworks, key third-party dependencies.]
+
+## 6. Data Model
+
+[Core entities and their relationships, at a level useful for onboarding a new agent — not a full schema dump.]
+
+## 7. Monetization
+
+[Free tier limits, what's gated behind a paid tier, and which monetization model — auto-renewable subscription or one-time purchase — if applicable. See the ios-common-features skill's `references/premium-entry-point.md` for why this needs to be stated explicitly and consistently, not re-derived per feature.]
+
+## 8. Permissions
+
+[Every OS permission the app requests, what feature it gates, and — critically — what the degraded/fallback experience is when it's denied. Every permission is optional; state the fallback for each one here.]
+
+## 9. Onboarding
+
+[The actual first-launch step sequence for *this* app, derived from what Section 2's core loop actually needs before it can work. Don't copy another app's steps.]
+
+## 10. Testing Strategy
+
+[What's actually covered, by which suite. Keep this honest and current — an aspirational section describing test tiers that don't exist yet is worse than a shorter, accurate one.]
+
+## 11. Submission / Launch Checklist
+
+[App Store / Play Store / production-deploy checklist, specific to this product.]
+
+---
+
+## Appendix: Version History
+
+- v1.0 — Initial spec.

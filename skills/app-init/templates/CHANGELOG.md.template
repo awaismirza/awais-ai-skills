@@ -1,0 +1,33 @@
+# Changelog
+
+All notable changes to this project. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/).
+
+Two changelogs exist and they are not the same thing (skip this table and use one bundled file instead if this repo's own convention already works that way — see the app-init skill's `references/process-scaffolding.md` Step 4):
+
+| File | Records | Update when |
+|---|---|---|
+| **CHANGELOG.md** (this file) | What shipped, per release | Every user-visible or operational change |
+| [docs/spec-changelog.md](docs/spec-changelog.md) | How the *specification* changed | The product spec version is bumped |
+
+Every entry must state the **user-visible effect**, not the implementation.
+
+---
+
+## [Unreleased]
+
+### Added
+-
+
+### Changed
+-
+
+### Fixed
+-
+
+---
+
+<!-- First real cut goes here, e.g.:
+## [0.1.0] — YYYY-MM-DD · Spec v1.0
+### Added
+- Initial release.
+-->
